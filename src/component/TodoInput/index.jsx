@@ -89,7 +89,16 @@ function TodoInput() {
     ); 
   }
 
+useEffect(() => {
+  localStorage.setItem("todosList", JSON.stringify(todosList));
+}, [todosList]);
 
+useEffect(() => {
+  const todosList = JSON.parse(localStorage.getItem("todosList"));
+  if (todosList) {
+    setTodosList(todosList);
+  }
+}, []);
 
 
   return (
