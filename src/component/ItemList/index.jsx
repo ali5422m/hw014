@@ -5,6 +5,11 @@ import { TiDeleteOutline } from "react-icons/ti";
 import GenerateRandomColor from "./../RandomColor"
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { styles } from './itemlist.style.js';
+
+
 
 function ItemList({ text, id, editFunc, deleteFunc }) {
   const [color , setColor ] = useState("");
@@ -12,43 +17,24 @@ function ItemList({ text, id, editFunc, deleteFunc }) {
     setColor(GenerateRandomColor());
   },[])
   return (
-    <div
-      className="d-flex justify-content-space-between rounded-1 p-1 "
-      style={{ backgroundColor: color }}
-    >
-      <div className="d-flex">
-        <span className="flex-wrap">{text}</span>
-      </div>
-      <div className="d-flex">
-        <button
-          onClick={() => deleteFunc(id)}
-          style={{
-            backgroundColor: "transparent",
-            color: "white",
-            border: "none",
-            fontSize: "1.2rem",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+    <Box sx ={styles.header} style={{backgroundColor:color}} >
+      <Box sx={{ display: "flex" }}>
+        <Typography>{text}</Typography>
+      </Box>
+      <Box sx={{ display: "flex" }}>
+        <button onClick={() => deleteFunc(id)} style={styles.deleteBtn}>
           <TiDeleteOutline />
         </button>
-        <button
-          onClick={() => editFunc(id, text)}
-          style={{
-            backgroundColor: "transparent",
-            color: "white",
-            border: "none",
-            fontSize: "1.2rem",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+        <button onClick={() => editFunc(id, text)} 
+        style={styles.editeBtn}>
           <FaEdit />
         </button>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
+
+
+
 
 export default ItemList

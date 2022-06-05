@@ -9,15 +9,7 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
  }
- .button1{
-   border: none;
-   border-top-right-radius: 2px;
-   border-bottom-right-radius: 2px;
-   background: linear-gradient(to right, #650AFD , #900AE2);
-   color: white;
-   width: 2.7rem;
-   opacity: 80%;
- }
+ 
 input{
   border: none;
   outline: none;
@@ -74,16 +66,13 @@ input{
 .fw-bolder{
   font-weight: bold;
 }
-.form1{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  width: 300px;
-  height: 300px;
-  border-radius: 4px;
-  box-shadow: 0px 0px 5px 0px #171A2B;
-  background-color: #171A2B;
+
+.form1::-webkit-scrollbar {
+  display: none;
+}
+.form1 {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 .pl-1rem{
   padding-left: 1rem;
@@ -97,3 +86,4 @@ input{
 .bg-blue{
   background-color: #3214FF;
 }
+

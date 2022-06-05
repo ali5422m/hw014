@@ -1,39 +1,19 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import "./todoinput.style.css";
 import "./../../index.css";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ItemList from "./../ItemList";
-import useGenerateRandomColor from "./../RandomColor";
+import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
+import { todoinputstyle } from "./todoinput.style.js";
+import axios from "axios";
+
 
 
 
 function TodoInput() {
-  // const { color, generateColor } = useGenerateRandomColor();
-  // const [color, generateColor] = useState(false)
-
-  // const [color , setColor] = useState("#000");
-  // const getRgb = ()=> Math.floor(Math.random()*256);
-  // const rgbToHex = (r, g ,b)=>
-  // "#"+ 
-  // [r , g, b]
-  // .map(x=>{
-  //   const hex = x.toString(16);
-  //   return hex.length === 1 ? "0" + hex : hex;
-  // })
-  // .join("");
-
-  // const handleGenerate = () =>{
-  //   const color ={
-  //     r : getRgb(),
-  //     g:getRgb(),
-  //     b:getRgb(),
-  //   };
-  //   setColor(rgbToHex(color.r,color.g,color.b));
-  // }
-
   const [todosList, setTodosList] = useState([]);
   // const [todosInput, setTodosInput] = useState({
   //   title: "",
@@ -48,14 +28,14 @@ function TodoInput() {
     setTodosInput(value);
   }
 
-   function addTodo(e) {
-     e.preventDefault();
+   function addTodo() {
      if (!todosInput) return toast.error("input is empty");
      const newTodo = { title: todosInput, id: v4() };
      const originalTodos = [...todosList];
      originalTodos.push(newTodo);
      setTodosList(originalTodos);
      setTodosInput("");
+
    }
 
   function setEditedTodoIdFunc(id, title) {
@@ -63,6 +43,7 @@ function TodoInput() {
     setEditedTodoId(id);
     setTodosInput(title);
     setIsEditing(true);
+
   }
 
     function updateFunc(e) {
@@ -73,6 +54,7 @@ function TodoInput() {
       setTodosList(originalTodos);
       setTodosInput("");
       setIsEditing(false);
+
     }
 
     function deleteFunc(id) {
@@ -97,58 +79,42 @@ function TodoInput() {
 
   function checkBtns() {
     return isEditing ? (
-      <button onClick={updateFunc} className="button1">
+      <button onClick={updateFunc} style={todoinputstyle.button1}>
         {"update"}
       </button>
     ) : (
-      <button onClick={addTodo} className="button1">
+      <button onClick={addTodo} style={todoinputstyle.button1}>
         {"add"}
       </button>
     ); 
   }
-//  function generateColor1() {
-//    var letters = "0123456789ABCDEF".split("");
-//    var color = "#";
-//    for (var i = 0; i < 6; i++) {
-//      color += letters[Math.floor(Math.random() * 16)];
-//    }
-//    return color;
-//  }
 
-
-  // useEffect(()=>{
-   
-
-  // },[color])
 
 
 
   return (
     <>
-      <div className="form1">
-        <div className="header">
-          <h4>Feelin' productive today?</h4>
-        </div>
-        <div className="todoinput pt-1 flex-column ">
-          <div className="todoinput  ">
+      <Box sx={todoinputstyle.form1}>
+        <Box sx={todoinputstyle.header}>
+          <Typography>Feelin' productive today?</Typography>
+        </Box>
+        <Box sx={todoinputstyle.todoinput}>
+          <Box sx={todoinputstyle.todoinput2}>
             <input
               value={todosInput}
               onChange={(e) => changeInputValue(e.target.value)}
               // value={todosInput}
               // onChange={(e)=>changeInputValue(e.target.value)}
               type="text"
-              className="w-75"
+              style={todoinputstyle.w75}
             />
-            {/* <button onClick={generateColor} type="submit">
-            add
-          </button> */}
             {checkBtns()}
-          </div>
-        </div>
-        <div className="color-white  pl-1rem pr-1rem d-flex flex-column pt-2rem rounded-1">
+          </Box>
+        </Box>
+
+        <Box style={todoinputstyle.item}>
           {todosList.map((todo) => (
             <ItemList
-              style={{ paddingTop: "pt-5rem" }}
               text={todo.title}
               editFunc={setEditedTodoIdFunc}
               deleteFunc={deleteFunc}
@@ -156,8 +122,8 @@ function TodoInput() {
               key={todo.id}
             />
           ))}
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   );
 }
