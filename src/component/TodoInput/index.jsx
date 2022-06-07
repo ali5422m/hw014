@@ -8,13 +8,14 @@ import ItemList from "./../ItemList";
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 import { todoinputstyle } from "./todoinput.style.js";
-import axios from "axios";
+
 
 
 
 
 function TodoInput() {
-  const [todosList, setTodosList] = useState([]);
+  const [todosList, setTodosList] = useState(getLocalStorage());
+  
   // const [todosInput, setTodosInput] = useState({
   //   title: "",
 
@@ -89,16 +90,25 @@ function TodoInput() {
     ); 
   }
 
+  function getLocalStorage() {
+           const todosList = JSON.parse(localStorage.getItem("todosList"));
+            if (todosList) {
+            return todosList;
+             }else{
+               return []
+             }
+  }
+
 useEffect(() => {
   localStorage.setItem("todosList", JSON.stringify(todosList));
 }, [todosList]);
 
-useEffect(() => {
-  const todosList = JSON.parse(localStorage.getItem("todosList"));
-  if (todosList) {
-    setTodosList(todosList);
-  }
-}, []);
+// useEffect(() => {
+//   const todosList = JSON.parse(localStorage.getItem("todosList"));
+//   if (todosList) {
+//     setTodosList( todosList);
+//   }
+// }, []);
 
 
   return (
